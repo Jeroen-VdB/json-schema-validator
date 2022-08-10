@@ -20,6 +20,14 @@ async Task Execute(CommandLineOptions options)
     {
         Console.ForegroundColor = ConsoleColor.DarkYellow;
         errors.ForEach(e => Console.WriteLine(e));
+
+        if (options.Output)
+        {
+            var outputPath = $"{Path.GetFileNameWithoutExtension(options.Json)}.validated.json";
+            File.WriteAllLines(outputPath, errors);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Validation errors written to file.");
+        }
     }
     else
     {
